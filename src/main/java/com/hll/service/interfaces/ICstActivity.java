@@ -9,7 +9,6 @@ import java.util.List;
  * @author 何龙
  * @create 2018-12-11 20:36
  */
-@Service
 public interface ICstActivity {
     /**
      * 查询所有交往记录

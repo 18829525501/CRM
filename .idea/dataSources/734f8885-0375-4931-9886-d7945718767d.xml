@@ -35427,7 +35427,7 @@ KH_yyyyMMdd_00000</Comment>
     </column>
     <column id="5117" parent="4918" name="PLA_CHC_ID">
       <Position>2</Position>
-      <Comment>营销机会ID:外键 </Comment>
+      <Comment>营销机会ID:外键</Comment>
       <DataType>NUMBER(9 digit)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
@@ -35445,7 +35445,7 @@ KH_yyyyMMdd_00000</Comment>
     </column>
     <column id="5120" parent="4918" name="PLA_RESULT">
       <Position>5</Position>
-      <Comment>计划执行结果 </Comment>
+      <Comment>计划执行结果</Comment>
       <DataType>VARCHAR2(500 byte)|0s</DataType>
       <DefaultExpression>NULL</DefaultExpression>
     </column>
@@ -35992,7 +35992,7 @@ KH_yyyyMMdd_00000</Comment>
     </column>
     <column id="5214" parent="4925" name="RF_RIGHT_CODE">
       <Position>3</Position>
-      <Comment>权限id：外键 </Comment>
+      <Comment>权限id：外键</Comment>
       <DataType>NUMBER(9 digit)|0s</DataType>
       <NotNull>1</NotNull>
     </column>

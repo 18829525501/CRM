@@ -21,6 +21,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/cstLinkman")
 public class CstLinkmanController {
+
     @RequestMapping("/linkman")
     public String linkman(Model model, @RequestParam("id")Integer id){
         model.addAttribute( "id",id );

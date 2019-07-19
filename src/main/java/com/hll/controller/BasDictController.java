@@ -15,10 +15,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 /**
- * @author 何龙
+ * @author 杨颖松
  * @create 2018-12-06 9:41
  * 数据字典操作
  */
+
 @Controller
 @RequestMapping("/basDict")
 public class BasDictController {
@@ -69,6 +70,7 @@ public class BasDictController {
         ibasDict.insert(basDict);
         return "成功";
     }
+
 
     @RequestMapping("/selectType")
     @ResponseBody
