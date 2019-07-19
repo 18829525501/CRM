@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: 何龙
+  User: song
   Date: 2018/11/28
   Time: 23:23
   To change this template use File | Settings | File Templates.
@@ -34,7 +34,7 @@
     <div class="layui-mian">
         <p class="p-admin">
             <span>2018 &copy;</span>
-            陕西省西安市千锋教育何龙笼,版权所有
+            陕西省西安市杨颖松,版权所有
         </p>
     </div>
 </div>

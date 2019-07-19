@@ -25,18 +25,19 @@ public class ShiroController {
 
     @Autowired
     Iusermenu iusermenu;
+
     /**
      * 登录
      */
     @RequestMapping("/login")
     @ResponseBody
-    public  Map<String,Object> login(
-            @RequestParam("name")String name,//用户名
-            @RequestParam("password")String password,//密码
-            @RequestParam("verificationCode")String verificationCode //验证码
-            ){
-        Map<String,Object> m=new HashMap<>();
-        Integer code=0;//登录失败
+    public Map<String, Object> login(
+            @RequestParam("name") String name,//用户名
+            @RequestParam("password") String password,//密码
+            @RequestParam("verificationCode") String verificationCode //验证码
+    ) {
+        Map<String, Object> m = new HashMap<>();
+        Integer code = 0;//登录失败
         /*获取Subject*/
         Subject currentUser = SecurityUtils.getSubject();
 
@@ -44,11 +45,11 @@ public class ShiroController {
         Session session = currentUser.getSession();
 
         /*判断验证码是否正确*/
-        String sessionCode= (String) session.getAttribute("verCode");
-        if (!sessionCode.equals(verificationCode)){//验证码有误
-            m.put( "code",code );
-            m.put( "msg","验证码有误" );
-            return  m;
+        String sessionCode = (String) session.getAttribute("verCode");
+        if (!sessionCode.equals(verificationCode)) {//验证码有误
+            m.put("code", code);
+            m.put("msg", "验证码有误");
+            return m;
         }
 
 
@@ -59,38 +60,37 @@ public class ShiroController {
                 /*密码验证*/
                 currentUser.login(token);
             } catch (UnknownAccountException uae) {
-                m.put( "code",code );
-                m.put( "msg","用户名不存在" );
-                return  m;
+                m.put("code", code);
+                m.put("msg", "用户名不存在");
+                return m;
             } catch (IncorrectCredentialsException ice) {
 
-                m.put( "code",code );
-                m.put( "msg","密码错误" );
-                return  m;
+                m.put("code", code);
+                m.put("msg", "密码错误");
+                return m;
             } catch (LockedAccountException lae) {
 
-                m.put( "code",code );
-                m.put( "msg","用户被锁定" );
-                return  m;
-            }catch (AuthenticationException e){
-
-                m.put( "code",code );
-                m.put( "msg","登录失败" );
-
-                return  m;
+                m.put("code", code);
+                m.put("msg", "用户被锁定");
+                return m;
+            } catch (AuthenticationException e) {
+                m.put("code", code);
+                m.put("msg", "登录失败");
+                return m;
             }
+
 
         }
 
         /*调用service方法,将菜单与权限全部放入session中*/
 
         SysUser user = (SysUser) currentUser.getPrincipals().getPrimaryPrincipal();
-        session.setAttribute("user",user);
+        session.setAttribute("user", user);
         iusermenu.getMenu(user);
 
-        code=1;
-        m.put( "code",code );
-        return  m;
+        code = 1;
+        m.put("code", code);
+        return m;
     }
 
 }

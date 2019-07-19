@@ -33,52 +33,50 @@ public class ShiroRealm extends AuthorizingRealm {
             throws AuthenticationException {
         UsernamePasswordToken upd = (UsernamePasswordToken) token;
         String username = upd.getUsername();
-        String password = new String( upd.getPassword() );
+        String password = new String(upd.getPassword());
 
         /*开始调用service获取用户信息*/
         user = iusers.getUser(username);
 
-        if (user==null){
+        if (user == null) {
             throw new UnknownAccountException("用户不存在");
-        }else if (user.getUsrFlag()==0){
+        } else if (user.getUsrFlag() == 0) {
             throw new LockedAccountException("用户被冻结");
         }
 
 
         //1.用户的实体类
-        Object principal=user;
+        Object principal = user;
         //2.密码，从数据库取出来的
-        Object credentials=user.getUsrPassword();
+        Object credentials = user.getUsrPassword();
         //3.调用父类的getname()方法
-        //4.颜值加密
-        ByteSource byteSource=ByteSource.Util.bytes( username );
+        //4.盐值加密
+        ByteSource byteSource = ByteSource.Util.bytes(username);
 
-        AuthenticationInfo sinfo=new SimpleAuthenticationInfo(principal,credentials,byteSource,getName());
+        AuthenticationInfo sinfo = new SimpleAuthenticationInfo(principal, credentials, byteSource, getName());
         return sinfo;
     }
-
-
 
 
     /*角色授权*/
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         //获取登录用户的信息
-        SysUser principal= (SysUser) principals.getPrimaryPrincipal();
+        SysUser principal = (SysUser) principals.getPrimaryPrincipal();
         /*判断当前角色*/
-        Set<String> set=new LinkedHashSet<>();
+        Set<String> set = new LinkedHashSet<>();
         set.add("user");
 
-        if (principal.getUsrRoleId()==0){
+        if (principal.getUsrRoleId() == 0) {
             set.add("boss");
         }
-        if (principal.getUsrRoleId()==1){
+        if (principal.getUsrRoleId() == 1) {
             set.add("admin");
         }
-        if (principal.getUsrRoleId()==2){
+        if (principal.getUsrRoleId() == 2) {
             set.add("manager");
         }
-        if (principal.getUsrRoleId()==3){
+        if (principal.getUsrRoleId() == 3) {
             set.add("business");
         }
         /*角色与权限*/
@@ -88,15 +86,15 @@ public class ShiroRealm extends AuthorizingRealm {
         info.addRoles(set);
 
         /*添加权限*/
-        Set<String> competence =new LinkedHashSet<>();
+        Set<String> competence = new LinkedHashSet<>();
         /*从session中获取权限*/
         Session session =
                 SecurityUtils.getSubject().getSession();
 
         List<SysRoleRight> competence1 =
-                (List<SysRoleRight>) session.getAttribute( "competence" );
+                (List<SysRoleRight>) session.getAttribute("competence");
         for (SysRoleRight sysRoleRight : competence1) {
-            competence.add( sysRoleRight.getSysRight().getRightTip());
+            competence.add(sysRoleRight.getSysRight().getRightTip());
         }
         /*将权限装入*/
         info.addStringPermissions(competence);
@@ -107,13 +105,11 @@ public class ShiroRealm extends AuthorizingRealm {
     }
 
 
-
-
     public static void main(String[] args) {
 
-        Object password="123456";
-        ByteSource byteSource=ByteSource.Util.bytes( "王大锤" );
-        SimpleHash md5 = new SimpleHash( "MD5", password, byteSource, 1000 );
+        Object password = "123456";
+        ByteSource byteSource = ByteSource.Util.bytes("王大锤");
+        SimpleHash md5 = new SimpleHash("MD5", password, byteSource, 1000);
         System.out.println(md5);
     }
 }
