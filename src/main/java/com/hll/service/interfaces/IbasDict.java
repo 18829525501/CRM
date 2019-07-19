@@ -9,6 +9,7 @@ import java.util.List;
  * @author 何龙
  * @create 2018-12-06 9:48
  */
+@Service
 public interface IbasDict {
     /**
      * 条件模糊查询
