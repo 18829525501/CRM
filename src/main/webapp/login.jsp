@@ -67,7 +67,7 @@
                     </div>
                 </div>
                 <div class="kit-login-row">
-                    <button class="layui-btn kit-login-btn" lay-submit="submit" lay-filter="login_hash">登录</button>
+                    <button class="layui-btn kit-login-btn" lay-submit="submit" lay-filter="">登录</button>
                 </div>
             </form>
         </div>
